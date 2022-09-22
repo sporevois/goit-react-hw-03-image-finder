@@ -1,6 +1,6 @@
 import { Component } from "react";
 import Searchbar from "./Searchbar"
-import ImageGellary from "./ImageGallery";
+// import ImageGellary from "./ImageGallery";
 import * as API from '../services/api';
 
 
