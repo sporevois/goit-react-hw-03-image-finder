@@ -3,25 +3,32 @@ import { Component } from "react";
 export default class Searchbar extends Component{
     
     state = {
-        querry: ""
+        searchQuerry: ""
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { querry } = this.state;
-        this.props.onSubmit({ querry });
-        this.setState({
-            querry: ''
-        })
+        const { searchQuerry } = this.state;
+        if (searchQuerry.trim() === '') {
+            alert('Please enter something to searh querry');
+            return;
+        }
+        this.props.onSubmit(searchQuerry);
+        this.resetInput();
     }
 
     handleInput = (event) => {
-        const { name, value } = event.target;
-        this.setState({ [name]: value });
+        this.setState({ searchQuerry: event.currentTarget.value.toLowerCase() });
+    }
+
+    resetInput() {
+        this.setState({
+            searchQuerry: ""
+        })
     }
 
     render() {
-        const { querry } = this.state;
+        const { searchQuerry } = this.state;
         const { handleInput, handleSubmit } = this;
         return(
             <header className="searchbar">
@@ -36,8 +43,8 @@ export default class Searchbar extends Component{
                     autoComplete="off"
                     autoFocus
                     placeholder="Search images and photos"
-                    name = "querry"
-                    value = {querry}
+                    name = "searchQuerry"
+                    value = {searchQuerry}
                     onInput={handleInput}
                 />
               </form>
