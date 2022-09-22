@@ -1,7 +1,7 @@
 import { Component } from "react";
 import * as API from '../services/api';
 import Searchbar from "./Searchbar"
-// import ImageGellary from "./ImageGallery";
+import ImageGellary from "./ImageGallery";
 
 
 
@@ -26,8 +26,6 @@ export class App extends Component {
     this.setState({isLoading: true});
     try {
       const images = await API.fetchImages(searchQuerry, page);
-      console.log(images)
-      
       this.setState(({gallery}) => ({
         gallery: [...gallery, ...images]
       }));
@@ -46,10 +44,12 @@ export class App extends Component {
   }
 
   render() {
+    const { gallery } = this.state;
     const { handleSubmit } = this;
     return (
       <div>
         <Searchbar onSubmit={handleSubmit} />
+        <ImageGellary images={gallery} />
       </div>
     )
   }
