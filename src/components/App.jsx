@@ -4,8 +4,7 @@ import Searchbar from "./Searchbar/Searchbar"
 import ImageGellary from "./imageGallery/ImageGallery";
 import Button from "./Button/Button";
 import Loader from "./Loader/Loader";
-
-
+import Modal from "./Modal/Modal";
 
 export class App extends Component {
 
@@ -14,7 +13,9 @@ export class App extends Component {
     gallery: [],
     page: 1,
     error: null,
-    isLoading: false
+    isLoading: false,
+    currentImgUrl: "",
+    currentImgTag: ""
   }
 
   componentDidUpdate(_, prevState) {
@@ -27,6 +28,20 @@ export class App extends Component {
       
     }
   }
+
+  onModalOpen = (url, tag) => {
+    this.setState({
+      currentImgUrl: url,
+      currentImgTag: tag
+    })
+  }
+
+  onModalClose = () => {
+    this.setState({
+      currentImgUrl: "",
+      currentImgTag: ""
+    })
+  } 
 
   getImages = async (searchQuerry, page) => {
     try {
@@ -53,19 +68,28 @@ export class App extends Component {
   }
 
   handleSubmit = querry => {
-    this.setState({ searchQuerry: querry });
-    this.setState({ gallery:[]})
+    this.setState({
+      searchQuerry: querry,
+      gallery: [],
+      page: 1
+    });
   }
 
   render() {
-    const { gallery, isLoading } = this.state;
-    const { handleSubmit, loadMoreImages } = this;
+    const { gallery, isLoading, currentImgUrl, currentImgTag } = this.state;
+    const { handleSubmit, loadMoreImages, onModalOpen, onModalClose } = this;
+    
     return (
-      <div style={{marginBottom:'15px'} }>
+      <div style={{marginBottom:'15px'}}>
         <Searchbar onSubmit={handleSubmit} />
-        <ImageGellary images={gallery} />
+        <ImageGellary images={gallery} onClick={onModalOpen} />
         {gallery.length !== 0 && <Button onClick={loadMoreImages} />}
-        {isLoading && <Loader isLoading={isLoading}/>}
+        {isLoading && <Loader isLoading={isLoading} />}
+        {currentImgUrl && <Modal
+            closeModal={onModalClose}
+            url={currentImgUrl}
+            tag={currentImgTag}
+          />}
       </div>
     )
   }

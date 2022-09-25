@@ -1,5 +1,7 @@
 import { Component } from "react";
+import {GoSearch} from 'react-icons/go'
 import styles from "../Searchbar/Searchbar.module.css"
+import PropTypes from 'prop-types';
 
 export default class Searchbar extends Component{
     
@@ -35,7 +37,7 @@ export default class Searchbar extends Component{
             <header className="searchbar">
               <form className={styles.searchForm} onSubmit = {handleSubmit}>
                 <button type="submit" className={styles.button}>
-                  <span className="button-label">Search</span>
+                        <GoSearch className={styles.searchIcon}/>
                 </button>
 
                 <input
@@ -52,4 +54,8 @@ export default class Searchbar extends Component{
             </header>
         )
     }
+}
+
+Searchbar.propTypes = {
+    onSubmit: PropTypes.func.isRequired
 }

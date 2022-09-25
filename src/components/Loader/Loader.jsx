@@ -1,5 +1,6 @@
 import { Watch } from "react-loader-spinner";
 import styles from "../Loader/Loader.module.css"
+import PropTypes from 'prop-types';
 
 const Loader = ({isLoading}) => {
     return (
@@ -21,3 +22,7 @@ const Loader = ({isLoading}) => {
 }
 
 export default Loader;
+
+Loader.propTypes = {
+    isLoading: PropTypes.bool.isRequired
+}

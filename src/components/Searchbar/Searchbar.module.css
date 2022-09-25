@@ -1,5 +1,4 @@
 input {
-    margin-left: 16px;
     padding: 5px;
     height: 28px;
     font-weight: 500;
@@ -23,24 +22,24 @@ input {
 }
 .button {
     align-items: center;
-    font-family: inherit;
-    font-weight: 500;
-    font-size: 16px;
-    padding: 0.7em 1.4em 0.7em 1.1em;
+    height: 42px;
+    width: 42px;
+    padding: 2px;
     color: white;
     background: linear-gradient(0deg, rgba(146, 70, 173) 0%, rgba(212, 142, 236, 1) 100%);
-    border: none;
-    box-shadow: 0 0.7em 1.5em -0.5em #da51f598;
-    letter-spacing: 0.05em;
-    border-radius: 10em;
+    border: 1px solid #9246AD;
+    border-radius: 2px;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
 }
+.searchIcon{
+    width: 28px;
+    height: 28px
+}
 
-.button:hover {
-    /* box-shadow: 0 0.5em 3em -2em #9620c898; */
-    scale: 1.03;
+.button:hover .searchIcon{
+    fill:aqua;
     transition: 250ms;
 }
