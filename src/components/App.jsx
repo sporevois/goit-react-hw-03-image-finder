@@ -10,6 +10,7 @@ export class App extends Component {
 
   state = {
     searchQuerry: "",
+    totalImgFind: 0,
     gallery: [],
     page: 1,
     error: null,
@@ -45,9 +46,20 @@ export class App extends Component {
 
   getImages = async (searchQuerry, page) => {
     try {
-      const images = await API.fetchImages(searchQuerry, page);
-      this.setState(({gallery}) => ({
-        gallery: [...gallery, ...images]
+      const data = await API.fetchImages(searchQuerry, page);
+      const totalHits = data.totalHits;
+      const images = data.hits.map(({ id, largeImageURL, webformatURL, tags }) => {
+        return {
+          id,
+          largeImageURL,
+          webformatURL,
+          tags,
+        }
+      })
+      
+      this.setState(({ gallery, totalImgFind }) => ({
+        gallery: [...gallery, ...images],
+        totalImgFind: totalHits
       }));
       if(images.length === 0) {
         alert("Not find. Please, enter another request");
@@ -79,14 +91,14 @@ export class App extends Component {
   }
 
   render() {
-    const { gallery, isLoading, currentImgUrl, currentImgTag } = this.state;
+    const { gallery, isLoading, currentImgUrl, currentImgTag, totalImgFind } = this.state;
     const { handleSubmit, loadMoreImages, onModalOpen, onModalClose } = this;
     
     return (
       <div style={{marginBottom:'15px'}}>
         <Searchbar onSubmit={handleSubmit} />
         <ImageGellary images={gallery} onClick={onModalOpen} />
-        {gallery.length !== 0 && <Button onClick={loadMoreImages} />}
+        {gallery.length > 0 && gallery.length < totalImgFind && <Button onClick={loadMoreImages} />}
         {isLoading && <Loader isLoading={isLoading} />}
         {currentImgUrl && <Modal
             closeModal={onModalClose}
