@@ -61,6 +61,7 @@ export class App extends Component {
         gallery: [...gallery, ...images],
         totalImgFind: totalHits
       }));
+      
       if(images.length === 0) {
         alert("Not find. Please, enter another request");
       }
