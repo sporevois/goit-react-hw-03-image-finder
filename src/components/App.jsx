@@ -57,7 +57,7 @@ export class App extends Component {
         }
       })
       
-      this.setState(({ gallery, totalImgFind }) => ({
+      this.setState(({ gallery }) => ({
         gallery: [...gallery, ...images],
         totalImgFind: totalHits
       }));
