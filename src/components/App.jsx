@@ -68,10 +68,13 @@ export class App extends Component {
   }
 
   handleSubmit = querry => {
-    this.setState({
-      searchQuerry: querry,
-      gallery: [],
-      page: 1
+    this.setState(({ searchQuerry }) => {
+      if (querry !== searchQuerry)
+      return {
+        searchQuerry: querry,
+        gallery: [],
+        page: 1
+      }
     });
   }
 

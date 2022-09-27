@@ -17,17 +17,10 @@ export default class Searchbar extends Component{
             return;
         }
         this.props.onSubmit(searchQuerry);
-        this.resetInput();
     }
-
+    
     handleInput = (event) => {
         this.setState({ searchQuerry: event.currentTarget.value.toLowerCase() });
-    }
-
-    resetInput() {
-        this.setState({
-            searchQuerry: ""
-        })
     }
 
     render() {
